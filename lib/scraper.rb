@@ -1,5 +1,3 @@
-# require 'open-uri'
-# require 'pry'
 require_relative '../config/environment.rb'
 
 class Scraper
@@ -35,11 +33,8 @@ class Scraper
     movie_details[:storyline] = index.css("div[itemprop='description'] p").text.gsub(/\s+/, " ").strip
     movie_details[:review_rating] = index.css("span[itemprop='ratingValue']").text
     movie_details[:runtime] = index.css("time[itemprop='duration']")[1].text
-    #run_time
-
-    binding.pry
-
     movie_details
+
   end #scrape_movie_page
 
 end
