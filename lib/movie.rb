@@ -1,7 +1,8 @@
 class Movie
   @@movie_list = []
   puts "Movie"
-  attr_accessor :title, :year, :url
+  attr_accessor :title, :year, :url, :genre, :director, :release,
+    :storyline, :review_rating, :runtime
 
   def initialize(movie_hash)
     movie_hash.each {|key, value| self.send(("#{key}="), value)}
