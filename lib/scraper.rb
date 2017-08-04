@@ -5,7 +5,10 @@ require_relative '../config/environment.rb'
 class Scraper
 
   def self.scrape_top_list()
-    html = File.read('./fixtures/IMDb_top_250.html')
+    #html = File.read('./fixtures/IMDb_top_250.html')
+    #for possible user agent
+    #https://stackoverflow.com/questions/5798037/how-to-set-a-custom-user-agent-in-ruby
+    html = open('http://www.imdb.com/chart/top', 'User-Agent' => 'Ruby').read
     index = Nokogiri::HTML(html)
 
     movie_list_array = index.css("tbody.lister-list tr").collect do |movie|
@@ -21,19 +24,20 @@ class Scraper
     index = Nokogiri::HTML(html)
 
     movie_details = {}
-    # movie class will create instances of genre and director and add movies to
-    # each.
+
     movie_details[:genre] = index.css("div[itemprop='genre'] a").collect do |genre|
       genre.text
     end
+    movie_details[:director] = index.css("span[itemprop='director'] a span").collect do |director|
+      director.text
+    end
+    movie_details[:release] = index.css("div#titleDetails h4")[3].next_sibling.text.strip
+    movie_details[:storyline] = index.css("div[itemprop='description'] p").text.gsub(/\s+/, " ").strip
+    #rating
+    #run_time
 
     binding.pry
-    #release
-    #storyline
-    #rating
-    #director
-    #genre
-    #run_time
+
     movie_details
   end #scrape_movie_page
 
