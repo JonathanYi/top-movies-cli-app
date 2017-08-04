@@ -33,7 +33,8 @@ class Scraper
     end
     movie_details[:release] = index.css("div#titleDetails h4")[3].next_sibling.text.strip
     movie_details[:storyline] = index.css("div[itemprop='description'] p").text.gsub(/\s+/, " ").strip
-    #rating
+    movie_details[:review_rating] = index.css("span[itemprop='ratingValue']").text
+    movie_details[:runtime] = index.css("time[itemprop='duration']")[1].text
     #run_time
 
     binding.pry
