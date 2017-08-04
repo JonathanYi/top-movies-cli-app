@@ -1,11 +1,11 @@
 class Movie
-  @@Movie_List = []
+  @@movie_list = []
   puts "Movie"
   attr_accessor :title, :year, :url
 
   def initialize(movie_hash)
     movie_hash.each {|key, value| self.send(("#{key}="), value)}
-    @@Movie_List << self
+    @@movie_list << self
   end # end of initialize
 
   def self.create_from_collection(movie_array)
@@ -18,7 +18,7 @@ class Movie
   end # end of get_movie_details
 
   def self.all
-    @@Movie_list
+    @@movie_list
   end # end of all
 
 end
