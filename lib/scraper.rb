@@ -18,6 +18,7 @@ class Scraper
   end # scrape_top_list
 
   def self.scrape_movie_page(movie_url)
+    #This is for offline testing
     #html = File.read('./fixtures/The Shawshank Redemption (1994) - IMDb.html')
     html = open(movie_url, 'User-Agent' => 'Ruby').read
     index = Nokogiri::HTML(html)
