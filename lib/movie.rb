@@ -6,14 +6,19 @@ class Movie
   def initialize(movie_hash)
     movie_hash.each {|key, value| self.send(("#{key}="), value)}
     @@Movie_List << self
-  end
+  end # end of initialize
 
   def self.create_from_collection(movie_array)
     movie_array.each {|movie|
       Movie.new(movie)
     }
-  end
+  end # end of create_from_collection
 
   def get_movie_details(movie_details)
-  end
+  end # end of get_movie_details
+
+  def self.all
+    @@Movie_list
+  end # end of all
+
 end
