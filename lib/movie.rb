@@ -19,12 +19,17 @@ class Movie
     #genre is an array
       #for each genre, create genre if it doesn't exist and add self.
       #this may be a separate method
-      puts movie_details(:genre)# array
+      movie_details(:genre)
     #director is an array
       #for each director, create a director and add self.
       puts movie_details(:director)# array
     #assign remaining details to variables
   end # end of get_movie_details
+
+  def genre=(array)
+
+    Genre.find_or_create_by_name(name)
+  end
 
   def self.all
     @@movie_list
