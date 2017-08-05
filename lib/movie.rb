@@ -16,7 +16,7 @@ class Movie
   end # end of create_from_collection
 
   def get_movie_details(details_hash)
-    # will only add details
+    details_hash.each {|key, value| key.send(("#{key}="), value)}
   end # end of get_movie_details
 
   def self.all
