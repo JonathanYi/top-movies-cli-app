@@ -3,8 +3,9 @@ require_relative '../config/environment.rb'
 class Scraper
 
   def self.scrape_top_list(list_url)
+    #for offline testing
     #html = File.read('./fixtures/IMDb_top_250.html')
-    #for possible user agent
+    #link for where i got user-agent info
     #https://stackoverflow.com/questions/5798037/how-to-set-a-custom-user-agent-in-ruby
     html = open(list_url, 'User-Agent' => 'Ruby').read
     index = Nokogiri::HTML(html)
