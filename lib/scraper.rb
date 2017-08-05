@@ -2,18 +2,18 @@ require_relative '../config/environment.rb'
 
 class Scraper
 
-  def self.scrape_top_list()
+  def self.scrape_top_list(list_url)
     #html = File.read('./fixtures/IMDb_top_250.html')
     #for possible user agent
     #https://stackoverflow.com/questions/5798037/how-to-set-a-custom-user-agent-in-ruby
-    html = open('http://www.imdb.com/chart/top', 'User-Agent' => 'Ruby').read
+    html = open(list_url, 'User-Agent' => 'Ruby').read
     index = Nokogiri::HTML(html)
 
-    movie_list_array = index.css("tbody.lister-list tr").collect do |movie|
-      {:title => movie.css("td.titleColumn a").text,
-       :year => movie.css("td.titleColumn span.secondaryInfo").text,
-       :url => movie.css("td.titleColumn a").attr("href").value
-      }
+    movie_list_array = index.css("tbody.lister-list tr").collect do |movie| {
+      :title => movie.css("td.titleColumn a").text,
+      :year => movie.css("td.titleColumn span.secondaryInfo").text,
+      :url => movie.css("td.titleColumn a").attr("href").value
+    }
     end
   end # scrape_top_list
 
