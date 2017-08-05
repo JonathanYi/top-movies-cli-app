@@ -1,8 +1,7 @@
 class Movie
   @@movie_list = []
   puts "Movie"
-  attr_accessor :title, :year, :url,
-    :genre, :director, :release, :storyline, :review_rating, :runtime
+  attr_accessor :title, :year, :url, :genre, :director, :release, :storyline, :review_rating, :runtime
 
   def initialize(movie_hash)
     movie_hash.each {|key, value| self.send(("#{key}="), value)}
@@ -16,7 +15,7 @@ class Movie
   end # end of create_from_collection
 
   def get_movie_details(details_hash)
-    details_hash.each {|key, value| key.send(("#{key}="), value)}
+    details_hash.each {|key, value| self.send(("#{key}="), value)}
   end # end of get_movie_details
 
   def self.all
