@@ -25,12 +25,8 @@ class Scraper
 
     movie_details = {}
 
-    movie_details[:genre] = index.css("div[itemprop='genre'] a").collect do |genre|
-      genre.text
-    end
-    movie_details[:director] = index.css("span[itemprop='director'] a span").collect do |director|
-      director.text
-    end
+    movie_details[:genre] = index.css("div[itemprop='genre'] a").collect {|genre| genre.text}
+    movie_details[:director] = index.css("span[itemprop='director'] a span").collect {|director| director.text}
     movie_details[:release] = index.css("div#titleDetails h4")[3].next_sibling.text.strip
     movie_details[:storyline] = index.css("div[itemprop='description'] p").text.gsub(/\s+/, " ").strip
     movie_details[:review_rating] = index.css("span[itemprop='ratingValue']").text

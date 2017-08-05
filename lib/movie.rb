@@ -15,21 +15,9 @@ class Movie
     }
   end # end of create_from_collection
 
-  def get_movie_details(movie_details)
-    #genre is an array
-      #for each genre, create genre if it doesn't exist and add self.
-      #this may be a separate method
-      movie_details(:genre)
-    #director is an array
-      #for each director, create a director and add self.
-      puts movie_details(:director)# array
-    #assign remaining details to variables
+  def get_movie_details(details_hash)
+    # will only add details
   end # end of get_movie_details
-
-  def genre=(array)
-
-    Genre.find_or_create_by_name(name)
-  end
 
   def self.all
     @@movie_list
