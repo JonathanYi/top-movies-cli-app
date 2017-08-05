@@ -1,21 +1,20 @@
 class Director
 
-    @@genres = []
+  extend Concerns::Findable
+  include Concerns::Addable
 
-    attr_accessor :director, :movies
+  @@genres = []
 
-    def initialize(genre)
-      @director = genre
-      @movies = []
-      @@genres << self
-    end # initialize
+  attr_accessor :name, :movies
 
-    def add_movie(movie)
-      self.movies << movie unless self.movies.include?(movie)
-    end # add_movie
+  def initialize(name)
+    @name = name
+    @movies = []
+    @@genres << self
+  end # initialize
 
-    def self.all
-      @@genres
-    end # all
+  def self.all
+    @@genres
+  end # all
 
 end

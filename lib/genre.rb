@@ -1,18 +1,17 @@
 class Genre
 
+  extend Concerns::Findable
+  include Concerns::Addable
+
   @@genres = []
 
-  attr_accessor :genre, :movies
+  attr_accessor :name, :movies
 
-  def initialize(genre)
-    @genre = genre
+  def initialize(name)
+    @name = name
     @movies = []
     @@genres << self
   end # initialize
-
-  def add_movie(movie)
-    self.movies << movie unless self.movies.include?(movie)
-  end # add_movie
 
   def self.all
     @@genres
