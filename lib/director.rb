@@ -3,18 +3,18 @@ class Director
   extend Concerns::Findable
   include Concerns::Addable
 
-  @@genres = []
+  @@directors = []
 
   attr_accessor :name, :movies
 
   def initialize(name)
     @name = name
     @movies = []
-    @@genres << self
+    @@directors << self
   end # initialize
 
   def self.all
-    @@genres
+    @@directors
   end # all
 
 end

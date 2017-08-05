@@ -1,3 +1,5 @@
+require_relative '../config/environment.rb'
+
 class CLI
 
   BASE_PATH = "http://www.imdb.com"
@@ -5,6 +7,7 @@ class CLI
   def run
     create_movie_list
     add_movie_details
+    debug
   end # run
 
   def create_movie_list
@@ -17,7 +20,9 @@ class CLI
       #binding.pry
       details_hash = Scraper.scrape_movie_page(BASE_PATH + movie.url)
       details_hash[:genre] = to_genre_object_array(details_hash[:genre])
+      details_hash[:genre].each {|genre| genre.add_movie(movie)}
       details_hash[:director] = to_director_object_array(details_hash[:director])
+      details_hash[:director].each {|director| director.add_movie(movie)}
 
       movie.get_movie_details(details_hash)
     end
@@ -31,4 +36,7 @@ class CLI
     array.collect {|genre| Director.find_or_create_by_name(genre)}
   end # to_director_object_array
 
+  def debug
+    binding.pry
+  end
 end
