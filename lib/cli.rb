@@ -46,8 +46,9 @@ class CLI
     puts "3: To dsiplay Directors."
     puts "4: To exit"
 
-    input = -1
-    while !(input == 4)
+    #input = 0
+    #while !(input == 4)
+    #until input == 4
       input = gets.strip.to_i
       if input == 1
         display_movies(Movie.all)
@@ -59,8 +60,13 @@ class CLI
       #   binding.pry
       #   break #puts "this is happening"
       end
-    end
+    #end
   end # interface
+
+  def get_valid_input(range)
+    input = gets.strip.to_i
+    input if valid_input?(input, range)
+  end
 
   def valid_input?(input, range)
     (1..range).include?(input)
@@ -75,14 +81,15 @@ class CLI
     puts "Select a movie by number for movie details."
     puts "Type 0 to go back to main menu."
     input = ""
-    while !(input == 0)
+    #while !(input == 0)
+    #until input == 0
       input = gets.strip.to_i
       if input == 0
         interface
       elsif valid_input?(input, array.length)
         display_movie_details(array[input-1])
       end
-    end
+    #end
   end # display_movies
 
   def display_movie_details(movie)
