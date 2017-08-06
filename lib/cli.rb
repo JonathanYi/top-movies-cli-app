@@ -46,27 +46,20 @@ class CLI
     puts "3: To dsiplay Directors."
     puts "4: To exit"
 
-    #input = 0
-    #while !(input == 4)
-    #until input == 4
-      input = gets.strip.to_i
-      if input == 1
-        display_movies(Movie.all)
-      elsif input == 2
-        display_genre_or_director_list(Genre.all)
-      elsif input == 3
-        display_genre_or_director_list(Director.all)
-      # elsif input == 4
-      #   binding.pry
-      #   break #puts "this is happening"
-      end
-    #end
-  end # interface
+    input = -1
+    while !valid_input?(input, 4)
+      input = gets.to_i
+    end
 
-  def get_valid_input(range)
-    input = gets.strip.to_i
-    input if valid_input?(input, range)
-  end
+    if input == 1
+      display_movies(Movie.all)
+    elsif input == 2
+      display_genre_or_director_list(Genre.all)
+    elsif input == 3
+      display_genre_or_director_list(Director.all)
+    elsif input == 4
+    end
+  end # interface
 
   def valid_input?(input, range)
     (1..range).include?(input)
@@ -79,17 +72,18 @@ class CLI
     end
 
     puts "Select a movie by number for movie details."
-    puts "Type 0 to go back to main menu."
-    input = ""
-    #while !(input == 0)
+    puts "Type 0 or just enter to go back to main menu."
+    input = -1
+    while !(input == 0) && !valid_input?(input, array.length)
     #until input == 0
-      input = gets.strip.to_i
-      if input == 0
-        interface
-      elsif valid_input?(input, array.length)
-        display_movie_details(array[input-1])
-      end
-    #end
+      input = gets.to_i
+    end
+
+    if input == 0
+      interface
+    elsif valid_input?(input, array.length)
+      display_movie_details(array[input-1])
+    end
   end # display_movies
 
   def display_movie_details(movie)
@@ -102,14 +96,15 @@ class CLI
     puts " Run Time: ".colorize(:light_blue) + movie.runtime
     puts " Storyline: ".colorize(:light_blue) + movie.storyline
     puts ""
-    # puts "Type 0 to go back to main menu:"
-    # input = ""
-    # while input != 0
-    #   input = gets.strip.to_i
-    #   if input == 0
-    #     interface
-    #   end
-    # end
+    puts "Type 0 or just enter to go back to main menu."
+    input = -1
+    while !(input == 0)
+      input = gets.to_i
+    end
+
+    if input == 0
+      interface
+    end
   end # display_movie_details
 
   def display_genre_or_director_list(array)
@@ -119,15 +114,16 @@ class CLI
     end
 
     puts "Select an item by number to display list of movies."
-    puts "Type 0 to go back to main menu."
-    input = ""
-    while !(input == 0)
+    puts "Type 0 or just enter to go back to main menu."
+    input = -1
+    while !(input == 0) && !valid_input?(input, array.length)
       input = gets.strip.to_i
-      if input == 0
-        interface
-      elsif valid_input?(input, array.length)
-        display_movies(array[input-1].movies)
-      end
+    end
+
+    if input == 0
+      interface
+    elsif valid_input?(input, array.length)
+      display_movies(array[input-1].movies)
     end
   end # display_genre_or_director_list
 
