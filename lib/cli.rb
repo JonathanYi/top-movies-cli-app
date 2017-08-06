@@ -38,11 +38,8 @@ class CLI
     array.collect {|genre| Director.find_or_create_by_name(genre)}
   end # to_director_object_array
 
-  def debug
-    binding.pry
-  end
-
   def interface
+    puts ""
     puts "Please select an option by number"
     puts "1: To display top #{Movie.all.length} movies."
     puts "2: To display genres."
@@ -50,42 +47,47 @@ class CLI
     puts "4: To exit"
 
     input = -1
-    while input != 4
+    while !(input == 4)
       input = gets.strip.to_i
-      binding.pry
       if input == 1
-        display_movies
-      # elsif input == 2
-      #   display_genres
-      # elsif input == 3
-      #   display_directors
-      elsif input == 4
+        display_movies(Movie.all)
+      elsif input == 2
+        display_genre_or_director_list(Genre.all)
+      elsif input == 3
+        display_genre_or_director_list(Director.all)
+      # elsif input == 4
+      #   binding.pry
+      #   break #puts "this is happening"
       end
     end
   end # interface
 
   def valid_input?(input, range)
     (1..range).include?(input)
-  end
+  end # valid_input?
 
-  def display_movies
-    Movie.all.each_with_index do |movie, index|
+  def display_movies(array)
+    puts ""
+    array.each_with_index do |movie, index|
       puts "#{index+1}: #{movie.name} #{movie.year}".colorize(:red)
     end
 
     puts "Select a movie by number for movie details."
     puts "Type 0 to go back to main menu."
     input = ""
-    while input != 0
+    while !(input == 0)
       input = gets.strip.to_i
-      if valid_input?(input, Movie.all.length)
-        display_movie_details(Movie.all[input-1])
+      if input == 0
+        interface
+      elsif valid_input?(input, array.length)
+        display_movie_details(array[input-1])
       end
     end
   end # display_movies
 
   def display_movie_details(movie)
-    puts "#{movie.name}".colorize(:blue) + " #{movie.review_rating}".colorize(:yellow) + "/10"
+    puts ""
+    puts "#{movie.name}".colorize(:red) + " #{movie.review_rating}".colorize(:yellow) + "/10"
     puts " Run Time: ".colorize(:light_blue) + movie.runtime
     puts " Released: ".colorize(:light_blue) + movie.release
     puts " Director(s): ".colorize(:light_blue) + movie.director.collect {|genre| genre.name}.join(", ")
@@ -93,16 +95,33 @@ class CLI
     puts " Run Time: ".colorize(:light_blue) + movie.runtime
     puts " Storyline: ".colorize(:light_blue) + movie.storyline
     puts ""
-    puts "Type 0 for main menu, 1 to go back to select another movie:"
+    # puts "Type 0 to go back to main menu:"
+    # input = ""
+    # while input != 0
+    #   input = gets.strip.to_i
+    #   if input == 0
+    #     interface
+    #   end
+    # end
+  end # display_movie_details
+
+  def display_genre_or_director_list(array)
+    puts ""
+    array.each_with_index do |value, index|
+      puts "#{index+1}: " + "#{value.name}".colorize(:red)
+    end
+
+    puts "Select an item by number to display list of movies."
+    puts "Type 0 to go back to main menu."
     input = ""
-    while input !=1 || input !=0
+    while !(input == 0)
       input = gets.strip.to_i
       if input == 0
         interface
-      elsif input == 1
-        display_movies
+      elsif valid_input?(input, array.length)
+        display_movies(array[input-1].movies)
       end
     end
-  end # display_movie_details
+  end # display_genre_or_director_list
 
 end

@@ -16,7 +16,7 @@ class Scraper
         :url => movie.css("td.titleColumn a").attr("href").value
       }
     end
-    movie_list_array.take(1)
+    movie_list_array.take(5)
   end # scrape_top_list
 
   def self.scrape_movie_page(movie_url)
