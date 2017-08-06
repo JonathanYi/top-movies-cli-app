@@ -7,7 +7,9 @@ class CLI
   def run
     create_movie_list
     add_movie_details
-    debug
+    #debug
+    puts "Welcome to Top Movies (Top list from IMDb)"
+    interface
   end # run
 
   def create_movie_list
@@ -39,4 +41,42 @@ class CLI
   def debug
     binding.pry
   end
+
+  def interface
+    puts "Please select an option by number"
+    puts "1: To display top #{Movie.all.length} movies."
+    puts "2: To display genres."
+    puts "3: To dsiplay Directors."
+    puts "4: To exit"
+
+    input = ""
+    while input != 4
+      input = gets.strip.to_i
+      if input == 1
+        display_movies
+      elsif input == 2
+        display_genres
+      elsif input == 3
+        display_directors
+      end
+    end
+  end # interface
+
+  def display_movies
+    Movie.all.each_with_index do |movie, index|
+      puts "#{index+1}: #{movie.name} #{movie.year}".colorize(:red)
+    end
+
+    puts "Select a movie by number for movie details."
+    puts "Select 0 to go back to main menu."
+    input = gets.strip.to_i
+  end # display_movies
+
+  def display_movie_details
+  end # display_movie_details
+
+  def show_details(movie)
+
+  end # print_details
+
 end

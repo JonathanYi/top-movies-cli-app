@@ -3,6 +3,8 @@ Bundler.require
 
 require 'open-uri'
 require 'pry'
+require 'colorize'
+require 'nokogiri'
 
 module Concerns
 end
