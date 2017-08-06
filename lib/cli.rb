@@ -19,7 +19,6 @@ class CLI
 
   def add_movie_details
     Movie.all.each do |movie|
-      #binding.pry
       details_hash = Scraper.scrape_movie_page(BASE_PATH + movie.url)
       details_hash[:genre] = to_genre_object_array(details_hash[:genre])
       details_hash[:genre].each {|genre| genre.add_movie(movie)}
@@ -75,7 +74,6 @@ class CLI
     puts "Type 0 or just enter to go back to main menu."
     input = -1
     while !(input == 0) && !valid_input?(input, array.length)
-    #until input == 0
       input = gets.to_i
     end
 
