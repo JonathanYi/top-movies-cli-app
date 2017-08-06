@@ -49,18 +49,24 @@ class CLI
     puts "3: To dsiplay Directors."
     puts "4: To exit"
 
-    input = ""
+    input = -1
     while input != 4
       input = gets.strip.to_i
+      binding.pry
       if input == 1
         display_movies
-      elsif input == 2
-        display_genres
-      elsif input == 3
-        display_directors
+      # elsif input == 2
+      #   display_genres
+      # elsif input == 3
+      #   display_directors
+      elsif input == 4
       end
     end
   end # interface
+
+  def valid_input?(input, range)
+    (1..range).include?(input)
+  end
 
   def display_movies
     Movie.all.each_with_index do |movie, index|
@@ -68,15 +74,35 @@ class CLI
     end
 
     puts "Select a movie by number for movie details."
-    puts "Select 0 to go back to main menu."
-    input = gets.strip.to_i
+    puts "Type 0 to go back to main menu."
+    input = ""
+    while input != 0
+      input = gets.strip.to_i
+      if valid_input?(input, Movie.all.length)
+        display_movie_details(Movie.all[input-1])
+      end
+    end
   end # display_movies
 
-  def display_movie_details
+  def display_movie_details(movie)
+    puts "#{movie.name}".colorize(:blue) + " #{movie.review_rating}".colorize(:yellow) + "/10"
+    puts " Run Time: ".colorize(:light_blue) + movie.runtime
+    puts " Released: ".colorize(:light_blue) + movie.release
+    puts " Director(s): ".colorize(:light_blue) + movie.director.collect {|genre| genre.name}.join(", ")
+    puts " Genre(s): ".colorize(:light_blue) + movie.genre.collect {|genre| genre.name}.join(", ")
+    puts " Run Time: ".colorize(:light_blue) + movie.runtime
+    puts " Storyline: ".colorize(:light_blue) + movie.storyline
+    puts ""
+    puts "Type 0 for main menu, 1 to go back to select another movie:"
+    input = ""
+    while input !=1 || input !=0
+      input = gets.strip.to_i
+      if input == 0
+        interface
+      elsif input == 1
+        display_movies
+      end
+    end
   end # display_movie_details
-
-  def show_details(movie)
-
-  end # print_details
 
 end
