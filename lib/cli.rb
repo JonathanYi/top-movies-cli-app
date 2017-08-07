@@ -7,7 +7,6 @@ class CLI
   def run
     create_movie_list
     add_movie_details
-    #debug
     puts "Welcome to Top Movies (Top list from IMDb)"
     interface
   end # run

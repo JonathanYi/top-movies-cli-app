@@ -10,13 +10,13 @@ class Scraper
     html = open(list_url, 'User-Agent' => 'Ruby').read
     index = Nokogiri::HTML(html)
 
-    movie_list_array = index.css("tbody.lister-list tr").collect do |movie| {
+    movie_list_array = index.css("tbody.lister-list tr").take(25).collect do |movie| {
         :name => movie.css("td.titleColumn a").text,
         :year => movie.css("td.titleColumn span.secondaryInfo").text,
         :url => movie.css("td.titleColumn a").attr("href").value
       }
     end
-    movie_list_array.take(5)
+    movie_list_array#.take(5)
   end # scrape_top_list
 
   def self.scrape_movie_page(movie_url)
