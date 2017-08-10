@@ -11,6 +11,14 @@ class Movie
     @@movie_list << self
   end # end of initialize
 
+  def self.movies_made_after(year)
+    @@movie_list.select do |movie|
+      #binding.pry
+      string = movie.year
+      string.slice(1, string.length - 2).to_i >= year
+    end
+  end
+
   def get_movie_details(details_hash)
     details_hash.each {|key, value| self.send(("#{key}="), value)}
   end # end of get_movie_details
