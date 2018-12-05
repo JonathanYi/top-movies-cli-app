@@ -14,7 +14,7 @@ Scarper scrapes the entire 250 movies list from IMDb, but in #scrape_top_list yo
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/Nitro152/top-movies-cli-app. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org/) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/JonathanYi/top-movies-cli-app. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org/) code of conduct.
 
 ## License
 
